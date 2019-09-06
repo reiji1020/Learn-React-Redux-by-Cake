@@ -8,9 +8,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import CakeIcon from '@material-ui/icons/Cake';
 import KitchenIcon from '@material-ui/icons/Kitchen';
-import CakeList from './cakeList';
-import MaterialList from './materialList';
 import { ThemeProvider } from '@material-ui/styles';
+import ListTable from '../components/listTable';
+import CakeListSetting from '../const/cakeListSetting';
+import MaterialListSetting from '../const/cakeListSetting';
 
 function a11yProps(index) {
 	return {
@@ -61,10 +62,10 @@ export default function CommonPage() {
 				onChangeIndex={handleChangeIndex}
 			>
 				<div value={value} index={0} dir={theme.direction}>
-					<CakeList />
+					<ListTable tableSetting={CakeListSetting.tableSetting} data={CakeListSetting.initialList} />
 				</div>
 				<div value={value} index={1} dir={theme.direction}>
-					<MaterialList />
+					<ListTable tableSetting={MaterialListSetting.tableSetting} data={MaterialListSetting.initialList} />
 				</div>
 			</SwipeableViews>
 		</ThemeProvider>
