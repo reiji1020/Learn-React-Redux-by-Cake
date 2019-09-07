@@ -1,6 +1,6 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import commonStyle from '../const/commonStyle';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -18,7 +18,7 @@ import MaterialListSetting from '../const/cakeListSetting';
 import { setCakeStock, sellShortCake } from '../action/cakeListActions';
 
 function mapStateToProps(state) {
-    return { cakeProps: state }
+	return { cakeProps: state };
 }
 
 class CommonPage extends Component {
@@ -26,8 +26,12 @@ class CommonPage extends Component {
 		super(props);
 		this.state = {
 			value: 0,
-		}
-		this.props.dispatch(setCakeStock(CakeListSetting.initialList))
+		};
+		this.sellCake = this.sellCake.bind(this);
+	}
+
+	componentDidMount() {
+		this.props.dispatch(setCakeStock(CakeListSetting.initialList));
 	}
 
 	a11yProps(index) {
@@ -49,6 +53,10 @@ class CommonPage extends Component {
 		});
 	}
 
+	sellCake() {
+		this.props.dispatch(sellShortCake());
+	}
+
 	render() {
 		const theme = commonStyle();
 		const { cakeProps } = this.props;
@@ -66,7 +74,7 @@ class CommonPage extends Component {
 				<AppBar position="static" color="default">
 					<Tabs
 						value={this.state.value}
-						onChange={()=>this.handleChange()}
+						onChange={() => this.handleChange()}
 						indicatorColor="primary"
 						textColor="primary"
 						variant="fullWidth"
@@ -79,13 +87,20 @@ class CommonPage extends Component {
 				<SwipeableViews
 					axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
 					index={this.state.value}
-					onChangeIndex={()=>this.handleChange()}
+					onChangeIndex={() => this.handleChange()}
 				>
 					<div value={this.state.value} index={0} dir={theme.direction}>
-						<ListTable tableSetting={CakeListSetting.tableSetting} data={cakeProps.cakeList} sellHandlar={this.sellCake}/>
+						<ListTable
+							tableSetting={CakeListSetting.tableSetting}
+							data={cakeProps.cakeList}
+							sellHandler={this.sellCake}
+						/>
 					</div>
 					<div value={this.state.value} index={1} dir={theme.direction}>
-						<ListTable tableSetting={MaterialListSetting.tableSetting} data={MaterialListSetting.initialList} />
+						<ListTable
+							tableSetting={MaterialListSetting.tableSetting}
+							data={MaterialListSetting.initialList}
+						/>
 					</div>
 				</SwipeableViews>
 			</ThemeProvider>
@@ -93,4 +108,4 @@ class CommonPage extends Component {
 	}
 }
 
-export default connect(mapStateToProps)(CommonPage)
+export default connect(mapStateToProps)(CommonPage);
