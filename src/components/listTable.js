@@ -27,7 +27,7 @@ export default class ListTable extends Component {
 											<Button
 												variant="contained"
 												color="primary"
-												onClick={this.props.sellHandler}
+												onClick={() => this.props.sellHandler(item.name, item.price)}
 											>
 												1つ売る
 											</Button>
@@ -37,7 +37,7 @@ export default class ListTable extends Component {
 											<Button
 												variant="contained"
 												color="primary"
-												onClick={this.props.refillHandler}
+												onClick={() => this.props.refillHandler(item.name, item.price)}
 											>
 												1つ補充する
 											</Button>
